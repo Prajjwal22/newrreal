@@ -47,7 +47,7 @@ export class MemStorage implements IStorage {
         description: "Premium commercial tower with modern amenities and strategic location in the heart of Gurugram's business district.",
         features: ["Commercial Spaces", "Modern Architecture", "Prime Location", "High Speed Elevators"],
         status: "Premium",
-        imageUrl: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+        imageUrl: "/essel4.jpg",
         category: "commercial",
         amenities: ["24/7 Security", "Power Backup", "Parking", "Maintenance"],
         featured: true,

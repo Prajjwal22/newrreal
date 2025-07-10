@@ -8,6 +8,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default defineConfig({
+  base: "/",
+  publicDir: path.resolve(__dirname, "attached_assets"),
   plugins: [
     react(),
     runtimeErrorOverlay(),
