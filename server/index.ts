@@ -44,8 +44,8 @@ app.use((req, res, next) => {
     throw err;
   });
 
-  if (process.env.NODE_ENV === "development") {
-    const { setupVite } = await import("./vite.js"); // 👈 dynamic import
+  if (process.env.NODE_ENV !== "production") {
+    const { setupVite } = await import("./vite.js"); // or .ts if you're not bundling
     await setupVite(app, server);
   } else {
     serveStatic(app);
