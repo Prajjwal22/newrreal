@@ -1,49 +1,21 @@
 version: '3.8'
 
 services:
-  app:
+  replit_app:
     build: .
-    container_name: ${APP_NAME}
-    restart: unless-stopped
+    container_name: ${APP_NAME}       
     environment:
-      - VIRTUAL_HOST=${DOMAIN}
-      - LETSENCRYPT_HOST=${DOMAIN}
-      - LETSENCRYPT_EMAIL=${EMAIL}
+      NODE_ENV: production  
+      VIRTUAL_HOST: ${DOMAIN}
+      LETSENCRYPT_HOST: ${DOMAIN}
+      LETSENCRYPT_EMAIL: ${EMAIL}
+      PORT: 5000
+    networks:
+      - nginx_network
     expose:
-      - "${APP_PORT}"
-    networks:
-      - webproxy
-
-  nginx-proxy:
-    image: jwilder/nginx-proxy
-    container_name: nginx-proxy
+      - "5000"
     restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ./certs:/etc/nginx/certs:ro
-      - ./vhost.d:/etc/nginx/vhost.d
-      - ./html:/usr/share/nginx/html
-    networks:
-      - webproxy
-
-  acme-companion:
-    image: nginxproxy/acme-companion
-    container_name: acme-companion
-    restart: unless-stopped
-    environment:
-      - DEFAULT_EMAIL=${EMAIL}
-    volumes_from:
-      - nginx-proxy
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./certs:/etc/nginx/certs
-      - ./acme:/etc/acme.sh
-    networks:
-      - webproxy
-
 networks:
-  webproxy:
-    external: false
+  nginx_network:
+    external: true
+
